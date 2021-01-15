@@ -1,4 +1,4 @@
-# demoaudiotranscription
+# Audio Transcription Demo
 
 Demo Project for HMS Audio Transcription
 
