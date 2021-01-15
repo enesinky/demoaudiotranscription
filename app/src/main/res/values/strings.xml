@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Audio Transcription Demo</string>
+    <string name="audio_file_transcription">Audio File Transcription</string>
+    <string name="real_time_transcription">Real Time Transcription</string>
+    <string name="output">Console:</string>
+    <string name="choose_file">Choose File</string>
+    <string name="clear">Clear</string>
+</resources>
