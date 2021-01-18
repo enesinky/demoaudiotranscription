@@ -25,14 +25,12 @@ class TimestampConverter {
         val seconds = active % 60
 
         var str = "00:00"
-        if(ts in 0..ds) {
-            when {
-                ds in 0 until 1000 * 60 * 60 -> {
-                    str = addZero(minutes) + ":" + addZero(seconds)
-                }
-                ds >= 1000 * 60 * 60 -> {
-                    str = addZero(hours) + ":" + addZero((minutes % 60)) + ":" + addZero(seconds)
-                }
+        when {
+            ds in 0 until 1000 * 60 * 60 -> {
+                str = addZero(minutes) + ":" + addZero(seconds)
+            }
+            ds >= 1000 * 60 * 60 -> {
+                str = addZero(hours) + ":" + addZero((minutes % 60)) + ":" + addZero(seconds)
             }
         }
         return str

@@ -9,11 +9,14 @@ object Constants {
 
     val MANUFACTURER_BRAND = Build.MANUFACTURER.toUpperCase(Locale.ROOT)
 
+    val AT_PERMISSION_LIST = arrayOf(
+        Manifest.permission.READ_EXTERNAL_STORAGE
+    )
     /*
         Audio Transcription Constants
      */
-    val AT_PERMISSION_LIST = arrayOf(
-        Manifest.permission.READ_EXTERNAL_STORAGE
+    val RTT_PERMISSION_LIST = arrayOf(
+        Manifest.permission.RECORD_AUDIO
     )
 
 }

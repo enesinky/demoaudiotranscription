@@ -60,6 +60,7 @@ dependencies {
 
     implementation 'com.huawei.agconnect:agconnect-core:1.4.1.300'
     implementation 'com.huawei.hms:ml-computer-voice-aft:2.1.0.300'
+    implementation 'com.huawei.hms:ml-computer-voice-realtimetranscription:2.1.0.300'
 
 }
 

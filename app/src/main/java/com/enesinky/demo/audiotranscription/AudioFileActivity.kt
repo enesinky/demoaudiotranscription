@@ -10,7 +10,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
-import android.view.View
 import android.widget.Button
 import android.widget.ScrollView
 import android.widget.TextView
@@ -39,8 +38,8 @@ class AudioFileActivity : AppCompatActivity() {
     private lateinit var chooseFileButton: Button
     private lateinit var clearButton: TextView
     private lateinit var scrollView: ScrollView
-    private val activity = this as Activity
     private var fileDuration = 0
+    private val console = Console()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,6 +52,9 @@ class AudioFileActivity : AppCompatActivity() {
         chooseFileButton = findViewById(R.id.button)
         clearButton = findViewById(R.id.clearBtn)
         scrollView = findViewById(R.id.scrollView)
+
+        // Build console
+        console.build(scrollView, this)
 
         val aftLanguages = arrayOf(
                 MLAftConstants.LANGUAGE_EN_US,
@@ -79,7 +81,7 @@ class AudioFileActivity : AppCompatActivity() {
                 if (isGranted) {
                     isPermissionGranted = true
                 } else {
-                    printText("Read Storage permission is not granted.")
+                    console.print("Read Storage permission is not granted.")
                 }
             }
 
@@ -99,28 +101,14 @@ class AudioFileActivity : AppCompatActivity() {
                 fileSelectorIntent()
             }
             else {
-                printText("File Explorer cannot be opened without permission.")
+                console.print("File Explorer cannot be opened without permission.")
             }
         }
 
         clearButton.setOnClickListener {
-            clearText()
+            console.clear()
         }
 
-    }
-
-    private fun printText(strText: String) {
-        val print = textHolder.text.toString() + "\n\n" + strText
-        activity.runOnUiThread {
-            textHolder.text = print
-            scrollView.fullScroll(View.FOCUS_DOWN)
-        }
-    }
-
-    private fun clearText() {
-        activity.runOnUiThread {
-            textHolder.text = activity.resources.getString(R.string.output)
-        }
     }
 
 
@@ -149,7 +137,7 @@ class AudioFileActivity : AppCompatActivity() {
             }
             fileSelectorForResult.launch(Intent.createChooser(intent, "Import a file"))
         } catch (ex: ActivityNotFoundException) {
-            printText("Install a file manager to perform this action.")
+            console.print("Install a file manager to perform this action.")
         }
     }
 
@@ -171,7 +159,7 @@ class AudioFileActivity : AppCompatActivity() {
         }
         val duration = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION)?.toInt()
 
-        printText("selected file uri=$uri, mimeType=$mimeType, fileSize=$fileSize, duration=$duration")
+        console.print("selected file uri=$uri, mimeType=$mimeType, fileSize=$fileSize, duration=$duration")
         Log.d(logTag, "processFile: selected file uri=$uri")
         Log.d(logTag, "processFile: selected file mimeType=$mimeType, fileSize=$fileSize, duration=$duration")
 
@@ -191,18 +179,16 @@ class AudioFileActivity : AppCompatActivity() {
     private fun startLongAftEngine(uri: Uri) {
         val aftTaskId = aftEngine.longRecognize(uri, aftConfig).also {
             Log.d(logTag, "startLongAftEngine: engine start command given. (TaskID=$it)")
-            printText("Long Engine start command given. (TaskID=$it)")
+            console.print("Long Engine start command given. (TaskID=$it)")
         }
     }
 
     private fun startShortAftEngine(uri: Uri) {
         aftEngine.shortRecognize(uri, aftConfig).also {
             Log.d(logTag, "startShortAftEngine: engine start command given.")
-            printText("Short Engine start command given.")
+            console.print("Short Engine start command given.")
         }
     }
-
-    data class ResultSentence(var text: String, var startTime: Long, var endTime: Long)
 
     private fun clearTimer() {
         waitResponseTimer?.cancel()
@@ -219,7 +205,7 @@ class AudioFileActivity : AppCompatActivity() {
             // After the initialization is complete, call the startTask method to start audio file upload and processing.
             aftEngine.startTask(taskId)
             Log.d(logTag, "onInitComplete: task is started with (TaskID=$taskId)")
-            printText("task is started with (TaskID=$taskId)")
+            console.print("task is started with (TaskID=$taskId)")
         }
 
         override fun onUploadProgress(taskId: String, progress: Double, ext: Any?) {
@@ -231,7 +217,7 @@ class AudioFileActivity : AppCompatActivity() {
             // For long audio file transcription, the result is returned by segment. You can create a thread in this method and call the MLRemoteAftEngine.getLongAftResult() method to periodically obtain the audio file transcription result.
             if (eventId == MLAftEvents.UPLOADED_EVENT) {
 
-                printText("file is uploaded. (TaskID=$taskId)")
+                console.print("file is uploaded. (TaskID=$taskId)")
                 Log.d(logTag, "onEvent: file is uploaded. (TaskID=$taskId)")
 
                 // Periodically obtain the audio file transcription result using this method.
@@ -245,7 +231,7 @@ class AudioFileActivity : AppCompatActivity() {
                 waitResponseTimerTask = object : TimerTask() {
                     override fun run() {
                         Log.d(logTag, "Service has no response since 60 seconds!")
-                        printText("Service has no response since 60 seconds!")
+                        console.print("Service has no response since 60 seconds!")
                     }
                 }
                 waitResponseTimer!!.schedule(waitResponseTimerTask, 60000)
@@ -258,7 +244,7 @@ class AudioFileActivity : AppCompatActivity() {
             if (result.isComplete) {
                 if(result.text != null) {
                     Log.d(logTag, "onResult: LongAft: full result obtained. (TaskID=$taskId)")
-                    printText("LongAft: full result obtained. (TaskID=$taskId)")
+                    console.print("LongAft: full result obtained. (TaskID=$taskId)")
                     retrieveResultTimer?.cancel()
                     retrieveResultTimer = null
 
@@ -276,7 +262,7 @@ class AudioFileActivity : AppCompatActivity() {
                                 logTag,
                                 "onResult: $sT: ${it.text}"
                         )
-                        printText("$sT: ${it.text}")
+                        console.print("$sT: ${it.text}")
                     }
 
                 } else {
@@ -284,7 +270,7 @@ class AudioFileActivity : AppCompatActivity() {
                             logTag,
                             "onResult: LongAft: result is completed but text is null. (TaskID=$taskId)"
                     )
-                    printText("result is completed but text is null. (TaskID=$taskId)")
+                    console.print("result is completed but text is null. (TaskID=$taskId)")
                 }
             } else {
                 queryNum++
@@ -293,7 +279,7 @@ class AudioFileActivity : AppCompatActivity() {
                         logTag,
                         "onResult: LongAft: Querying results (query num: $queryNum - current sentence count: $currentSentenceSize) (TaskID=$taskId)"
                 )
-                printText("Querying results (query num: $queryNum - current sentence count: $currentSentenceSize) (TaskID=$taskId)")
+                console.print("Querying results (query num: $queryNum - current sentence count: $currentSentenceSize) (TaskID=$taskId)")
             }
         }
 
@@ -316,7 +302,7 @@ class AudioFileActivity : AppCompatActivity() {
         override fun onError(taskId: String, errorCode: Int, message: String) {
             // Transcription error callback function.
             Log.d(logTag, "longAft: onError: $message ($errorCode) (TaskID=$taskId)")
-            printText("Error: $message ($errorCode) (TaskID=$taskId)")
+            console.print("Error: $message ($errorCode) (TaskID=$taskId)")
             clearTimer()
             retrieveResultTimer?.cancel()
             retrieveResultTimer = null

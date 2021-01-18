@@ -18,5 +18,10 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        card2.setOnClickListener {
+            val intent = Intent(this, RealTimeActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 }
