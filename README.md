@@ -2,7 +2,7 @@
 
 Demo Project for HMS Audio Transcription
 
-![screenshot](https://i.imgur.com/OhNrfzO.png)
+![screenshot](https://i.imgur.com/KZJ8uwv.jpg)
 
 
 # Preparation:
