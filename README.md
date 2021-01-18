@@ -29,6 +29,7 @@ dependencies{
 
 ## Audio File Transcription
 
+
 | Engine | Max File Duration |            Max File Size             
 |--------|-------------------|--------------------------------------
 | Short  | Up to 1 minute    | Less than 4 MB after Base64 encoding 
@@ -48,6 +49,7 @@ dependencies{
 | Mandarin Chinese |
 
 
+---
 
 ## Real Time Transcription
 
@@ -62,9 +64,9 @@ dependencies{
 
 
 
-| Engine    | Max Duration |
-|--------------------------|
-| Real Time | 5 Hours      |
+| Engine    | Max Duration 
+|-----------|--------------
+| Real Time | 5 Hours      
 
 
 
