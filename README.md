@@ -19,6 +19,7 @@ https://developer.huawei.com/consumer/en/codelab/HMSPreparation/index.html#0
 dependencies{
   // other dependencies
   implementation 'com.huawei.hms:ml-computer-voice-aft:2.1.0.300'
+  implementation 'com.huawei.hms:ml-computer-voice-realtimetranscription:2.1.0.300'
 }
 ```
 
@@ -26,7 +27,7 @@ dependencies{
 
 # ⚠️Limitations:
 
-We have naturally limitations on Audio File Transcription. If you are planning to work over the limits, you might want to change your mind.
+## Audio File Transcription
 
 | Engine | Max File Duration |            Max File Size             
 |--------|-------------------|--------------------------------------
@@ -47,8 +48,36 @@ We have naturally limitations on Audio File Transcription. If you are planning t
 | Mandarin Chinese |
 
 
+
+## Real Time Transcription
++---------------+---------+---------+--------+
+| Location      | Chinese | English | French |
++---------------+---------+---------+--------+
+| Europe        | √       | √       | √      |
+| Russia        | -       | √       | -      |
+| Asia          | √       | √       | √      |
+| Africa        | √       | √       | √      |
+| Latin America | √       | √       | √      |
+| China         | √       | √       | -      |
++---------------+---------+---------+--------+
+
+
++-----------+--------------+
+| Engine    | Max Duration |
++-----------+--------------+
+| Real Time | 5 Hours      |
++-----------+--------------+
+
+
++-------------------+
+| Supported Devices |
++-------------------+
+| Huawei Phones     |
+| Honor Phones      |
+
+
 # Pricing
-HMS mostly provides monthly free quota for cloud services, or even most services are fully free in trial period. Audio File Transcription service is priced by February 11, 2021 with pay-as-you-go model.
+HMS mostly provides monthly free quota for cloud services, or even most services are fully free in trial period. Audio Transcription service is priced by February 11, 2021 with pay-as-you-go model.
 
 
 |    Free Quota    |        Price        |
@@ -58,4 +87,4 @@ HMS mostly provides monthly free quota for cloud services, or even most services
 
 # Development
 
-(medium link)
+https://medium.com/huawei-developers/convert-human-voice-to-text-with-audio-file-transcription-c8b5aca8abf4
