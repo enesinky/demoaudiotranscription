@@ -50,28 +50,26 @@ dependencies{
 
 
 ## Real Time Transcription
-+---------------+---------+---------+--------+
-| Location      | Chinese | English | French |
-+---------------+---------+---------+--------+
-| Europe        | √       | √       | √      |
-| Russia        | -       | √       | -      |
-| Asia          | √       | √       | √      |
-| Africa        | √       | √       | √      |
-| Latin America | √       | √       | √      |
-| China         | √       | √       | -      |
-+---------------+---------+---------+--------+
+
+| Location      | Chinese | English | French
+|---------------|---------|---------|--------
+| Europe        | √       | √       | √      
+| Russia        | -       | √       | -      
+| Asia          | √       | √       | √      
+| Africa        | √       | √       | √      
+| Latin America | √       | √       | √      
+| China         | √       | √       | -      
 
 
-+-----------+--------------+
+
 | Engine    | Max Duration |
-+-----------+--------------+
+|--------------------------|
 | Real Time | 5 Hours      |
-+-----------+--------------+
 
 
-+-------------------+
+
 | Supported Devices |
-+-------------------+
+|-------------------|
 | Huawei Phones     |
 | Honor Phones      |
 
