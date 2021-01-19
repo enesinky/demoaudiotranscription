@@ -1,3 +1,5 @@
+![Latest Version](https://img.shields.io/badge/latestVersion-1.0-yellow) ![Kotlin](https://img.shields.io/badge/language-kotlin-blue) ![Minimum SDK Version](https://img.shields.io/badge/minSDK-24-orange) ![Android Gradle Version](https://img.shields.io/badge/androidGradleVersion-4.1.1-green) ![Gradle Version](https://img.shields.io/badge/gradleVersion-6.5-brown)
+
 # Audio Transcription Demo
 
 Demo Project for HMS Audio Transcription
